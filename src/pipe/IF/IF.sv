@@ -6,25 +6,26 @@ output reg [31:0] PC, Instruction
 );
 
 always @(posedge clk or posedge rst) begin
-    if (rst) begin
-        PC <= 32'b0;
-        Instruction <= 32'b0; 
-    end
-    else if (flush) begin
-        PC <= 32'b0;
-        Instruction <= 32'b0; 
-    end
-    else if (freeze) begin
-        PC <= PC;
-        Instruction <= Instruction;   
-    end            
-    else begin
-        PC <= PC_in;
-        Instruction <= Instruction_in;    
-    end   
+    if (rst) begin
+        PC <= 32'b0;
+        Instruction <= 32'b0;
+    end
+    else if (flush) begin
+        PC <= 32'b0;
+        Instruction <= 32'b0;
+    end
+    else if (freeze) begin
+        PC <= PC;
+        Instruction <= Instruction;  
+    end            
+    else begin
+        PC <= PC_in;
+        Instruction <= Instruction_in;    
+    end  
 end
 
 endmodule
+
 
 module IF_Stage (
 input clk, rst, freeze, Branch_taken ,
@@ -54,6 +55,10 @@ Register #(.WIDTH(32)) PC_reg (
 //     .en(1'b1),
 //     .data(Instruction)
 //     );
+inst_mem inst_rom (
+  .a(PC),            // input wire [10 : 0] a
+  .spo(Instruction)  // output wire [31 : 0] spo
+);
 
 wire [31:0] PC_inc;
 assign PC_inc = PC + 1;
