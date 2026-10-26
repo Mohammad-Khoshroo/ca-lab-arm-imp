@@ -14,4 +14,33 @@ output [31:0] PC, Instruction
 
 );
 
+Register #(.WIDTH(32)) PC_reg (
+    .clk(clk),
+    .reset(rst),
+    .enable(!freeze),
+    .pl_enable(1'b0),         
+    .d(next_PC),
+    .pl('0),
+    .q(PC)
+);
+
+rom #(
+    .ADDR_WIDTH(32),
+    .DATA_WIDTH(32),
+    .INIT_FILE("output_ultimate.coe"),
+    .SYNCHRONOUS(0)
+)   Ins_mem
+        (
+    .addr(PC),
+    .en(1'b1),
+    .data(Instruction)
+    );
+
+wire [31:0] PC_inc;
+assign PC_inc = PC + 1;
+
+wire [31:0] next_PC;
+assign next_PC = Branch_taken ? BranchAddr : PC_inc;
+
 endmodule
+
