@@ -5,6 +5,7 @@ output reg [31:0] PC, Instruction
 
 );
 
+wire [31:0] next_PC;
 always @(posedge clk or posedge rst) begin
  if (rst) begin
     PC <= 32'b0;
@@ -63,7 +64,6 @@ inst_mem inst_rom (
 wire [31:0] PC_inc;
 assign PC_inc = PC + 1;
 
-wire [31:0] next_PC;
 assign next_PC = Branch_taken ? BranchAddr : PC_inc;
 
 endmodule
