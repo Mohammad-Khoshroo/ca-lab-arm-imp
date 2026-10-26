@@ -43,17 +43,17 @@ Register #(.WIDTH(32)) PC_reg (
     .q(PC)
 );
 
-rom #(
-    .ADDR_WIDTH(32),
-    .DATA_WIDTH(32),
-    .INIT_FILE("output_ultimate.coe"),
-    .SYNCHRONOUS(0)
-)   Ins_mem
-        (
-    .addr(PC),
-    .en(1'b1),
-    .data(Instruction)
-    );
+// rom #(
+//     .ADDR_WIDTH(32),
+//     .DATA_WIDTH(32),
+//     .INIT_FILE("output_ultimate.coe"),
+//     .SYNCHRONOUS(0)
+// )   Ins_mem
+//         (
+//     .addr(PC),
+//     .en(1'b1),
+//     .data(Instruction)
+//     );
 
 wire [31:0] PC_inc;
 assign PC_inc = PC + 1;
