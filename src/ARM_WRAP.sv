@@ -4,13 +4,13 @@ module ARM_WRAP (
 );
 
     wire deb_out, rst;
-    assign rst = ~deb_out;
 
     debouncer deb_inst (
         .SIGNAL_I(key1),
         .CLK_I(clk),
         .SIGNAL_O(deb_out)
     );
+    assign rst = ~deb_out;
 
     ARM ARM_inst (
         .clk(clk),

@@ -22,7 +22,7 @@ module ARM (
     assign BranchAddr   = 32'b0;
     assign flush        = 1'b0;
 
-    IF_Stage IF (
+    IF fetch (
         .clk(clk),
         .rst(rst),
         .freeze(freeze),
@@ -32,7 +32,7 @@ module ARM (
         .Instruction(inst_if_out)
     );
 
-    IF_Stage_Reg IF_reg (
+    IF_Reg fetch_reg (
         .clk(clk),
         .rst(rst),
         .freeze(freeze),
@@ -43,21 +43,21 @@ module ARM (
         .Instruction(inst_id_in)
     );
 
-    ID_Stage_Reg ID_reg (
+    ID_Reg decode_reg (
         .clk(clk),
         .rst(rst),
         .PC_in(pc_id),
         .PC(pc_exe)
     );
 
-    EXE_Stage_Reg EXE_reg (
+    EXE_Reg exe_reg (
         .clk(clk),
         .rst(rst),
         .PC_in(pc_exe),
         .PC(pc_mem)
     );
 
-    MEM_Stage_Reg MEM_reg (
+    MEM_Reg memory_access_reg (
         .clk(clk),
         .rst(rst),
         .PC_in(pc_mem),
